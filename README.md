@@ -35,8 +35,7 @@ La documentación del API incluye:
 - Parámetros y estructura del request/response
 - Ejemplos de uso
 - Status de respuesta
-
-Ver documentación en /docs/api-doc.md (por crear o incluir en entrega).
+¿
 
 ## Configuración local
 
@@ -75,4 +74,5 @@ Este repositorio forma parte de la configuración del ciclo de vida de desarroll
 - Chalco Falcón David Alonso  
 - Chunga Vásquez Karla  
 - Alvarez Augusto  
+
 Proyecto Final - SI705 Arquitectura de Aplicaciones Web (202402)
