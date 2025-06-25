@@ -78,7 +78,6 @@ public class Habito {
         this.frecuencia = frecuencia;
     }
 
-
     @ElementCollection
     @CollectionTable(name = "dias_cumplidos", joinColumns = @JoinColumn(name = "habito_id"))
     @Column(name = "fecha")
