@@ -33,6 +33,7 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Map<String, String> body) {
         String nombre = body.get("nombre");
