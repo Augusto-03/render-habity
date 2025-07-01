@@ -63,4 +63,3 @@ public class LoginRequest {
 
     private Double altura;
 }
-d
