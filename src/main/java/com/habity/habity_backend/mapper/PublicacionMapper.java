@@ -9,7 +9,7 @@ public class PublicacionMapper {
         PublicacionDTO dto = new PublicacionDTO();
         dto.id = entity.getId();
         dto.contenido = entity.getContenido();
-        dto.fecha = entity.getFecha();
+        dto.fecha = entity.getFechaCreacion();
         dto.usuarioId = entity.getUsuario().getId();
         return dto;
     }
@@ -18,7 +18,7 @@ public class PublicacionMapper {
         Publicacion entity = new Publicacion();
         entity.setId(dto.id);
         entity.setContenido(dto.contenido);
-        entity.setFecha(dto.fecha);
+        entity.setFechaCreacion(dto.fecha);
         return entity;
     }
 }

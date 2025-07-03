@@ -23,10 +23,18 @@ public class Habito {
 
     private boolean completado;
 
+    private boolean activo;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     @JsonIgnore
     private Usuario usuario;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipo_habito_id")
+    private TipoHabito tipoHabito;
+
 
     // Getters y Setters
     public Long getId() {
@@ -77,6 +85,24 @@ public class Habito {
         this.frecuencia = frecuencia;
     }
 
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public TipoHabito getTipoHabito() {
+        return tipoHabito;
+    }
+
+    public void setTipoHabito(TipoHabito tipoHabito) {
+        this.tipoHabito = tipoHabito;
+    }
+
+
+
     @ElementCollection
     @CollectionTable(name = "dias_cumplidos", joinColumns = @JoinColumn(name = "habito_id"))
     @Column(name = "fecha")
@@ -89,3 +115,4 @@ public class Habito {
         this.diasCumplidos = diasCumplidos;
     }
 }
+

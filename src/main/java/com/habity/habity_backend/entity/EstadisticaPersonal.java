@@ -19,6 +19,10 @@ public class EstadisticaPersonal {
 
     // Getters y Setters
     public Long getId() { return id; }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public int getTotalHabitosCumplidos() { return totalHabitosCumplidos; }
     public void setTotalHabitosCumplidos(int totalHabitosCumplidos) { this.totalHabitosCumplidos = totalHabitosCumplidos; }
     public int getTotalDiasActivos() { return totalDiasActivos; }

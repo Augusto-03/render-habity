@@ -10,7 +10,6 @@ public class UsuarioMapper {
         dto.id = entity.getId();
         dto.nombre = entity.getNombre();
         dto.email = entity.getEmail();
-        dto.puntos = entity.getPuntos();
         return dto;
     }
 
@@ -19,7 +18,6 @@ public class UsuarioMapper {
         entity.setId(dto.id);
         entity.setNombre(dto.nombre);
         entity.setEmail(dto.email);
-        entity.setPuntos(dto.puntos);
         return entity;
     }
 }

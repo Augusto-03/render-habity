@@ -19,6 +19,10 @@ public class Recordatorio {
 
     // Getters y Setters
     public Long getId() { return id; }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public LocalTime getHora() { return hora; }
     public void setHora(LocalTime hora) { this.hora = hora; }
     public String getMensaje() { return mensaje; }

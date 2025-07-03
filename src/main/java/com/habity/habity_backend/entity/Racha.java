@@ -20,6 +20,9 @@ public class Racha {
 
     // Getters y Setters
     public Long getId() { return id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public int getDiasConsecutivos() { return diasConsecutivos; }
     public void setDiasConsecutivos(int diasConsecutivos) { this.diasConsecutivos = diasConsecutivos; }
     public LocalDate getFechaInicio() { return fechaInicio; }

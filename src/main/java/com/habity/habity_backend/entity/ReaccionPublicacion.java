@@ -13,6 +13,8 @@ public class ReaccionPublicacion {
     private Long id;
 
     private boolean esLike;
+    private String tipo;
+
 
     private LocalDateTime fecha = LocalDateTime.now();
 
@@ -27,6 +29,10 @@ public class ReaccionPublicacion {
     // Getters y Setters
     public Long getId() { return id; }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public boolean isEsLike() { return esLike; }
     public void setEsLike(boolean esLike) { this.esLike = esLike; }
 
@@ -38,4 +44,13 @@ public class ReaccionPublicacion {
 
     public LocalDateTime getFecha() { return fecha; }
     public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
 }
+

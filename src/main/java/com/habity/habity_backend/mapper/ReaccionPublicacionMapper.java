@@ -8,8 +8,8 @@ public class ReaccionPublicacionMapper {
     public static ReaccionPublicacionDTO toDTO(ReaccionPublicacion entity) {
         ReaccionPublicacionDTO dto = new ReaccionPublicacionDTO();
         dto.id = entity.getId();
-        dto.tipo = entity.getTipo();
-        dto.usuarioId = entity.getUsuario().getId();
+        dto.esLike = entity.isEsLike();
+        entity.setEsLike(dto.esLike);
         dto.publicacionId = entity.getPublicacion().getId();
         return dto;
     }

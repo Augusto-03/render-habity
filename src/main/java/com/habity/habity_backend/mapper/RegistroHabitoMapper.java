@@ -9,7 +9,7 @@ public class RegistroHabitoMapper {
         RegistroHabitoDTO dto = new RegistroHabitoDTO();
         dto.id = entity.getId();
         dto.fecha = entity.getFecha();
-        dto.completado = entity.isCompletado();
+        dto.cumplido = entity.isCumplido();  // ✅ usa isCumplido()
         dto.habitoId = entity.getHabito().getId();
         return dto;
     }
@@ -18,7 +18,7 @@ public class RegistroHabitoMapper {
         RegistroHabito entity = new RegistroHabito();
         entity.setId(dto.id);
         entity.setFecha(dto.fecha);
-        entity.setCompletado(dto.completado);
+        entity.setCumplido(dto.cumplido);  // ✅ usa setCumplido()
         return entity;
     }
 }

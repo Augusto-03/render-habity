@@ -9,7 +9,6 @@ public class RecompensaMapper {
         RecompensaDTO dto = new RecompensaDTO();
         dto.id = entity.getId();
         dto.descripcion = entity.getDescripcion();
-        dto.puntosNecesarios = entity.getPuntosNecesarios();
         dto.usuarioId = entity.getUsuario().getId();
         return dto;
     }
@@ -18,7 +17,6 @@ public class RecompensaMapper {
         Recompensa entity = new Recompensa();
         entity.setId(dto.id);
         entity.setDescripcion(dto.descripcion);
-        entity.setPuntosNecesarios(dto.puntosNecesarios);
         return entity;
     }
 }
