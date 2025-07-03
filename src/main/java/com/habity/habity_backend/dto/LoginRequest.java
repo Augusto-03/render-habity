@@ -8,6 +8,7 @@ public class LoginRequest {
     private Double peso;
     private String imagenUrl;
 
+
     public String getEmail() {
         return email;
     }
