@@ -31,9 +31,10 @@ public class Habito {
     @JsonIgnore
     private Usuario usuario;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_habito_id")
-    private TipoHabito tipoHabito;
+    private TipoHabito tipo;
 
 
     // Getters y Setters
@@ -93,12 +94,12 @@ public class Habito {
         this.activo = activo;
     }
 
-    public TipoHabito getTipoHabito() {
-        return tipoHabito;
+    public TipoHabito getTipo() {
+        return tipo;
     }
 
-    public void setTipoHabito(TipoHabito tipoHabito) {
-        this.tipoHabito = tipoHabito;
+    public void setTipo(TipoHabito tipo) {
+        this.tipo = tipo;
     }
 
 

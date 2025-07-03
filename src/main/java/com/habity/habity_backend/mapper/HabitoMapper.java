@@ -12,7 +12,8 @@ public class HabitoMapper {
         dto.descripcion = entity.getDescripcion();
         dto.activo = entity.isActivo();
         dto.usuarioId = entity.getUsuario().getId();
-        dto.tipoHabitoId = entity.getTipoHabito().getId();
+        dto.setTipoNombre(entity.getTipo().getNombre());
+
         return dto;
     }
 
