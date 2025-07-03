@@ -2,6 +2,11 @@ package com.habity.habity_backend.dto;
 
 public class LoginRequest {
     private String email;
+    private String password;
+    private Integer edad;
+    private Double altura;
+    private Double peso;
+    private String imagenUrl;
 
     public String getEmail() {
         return email;
@@ -19,9 +24,6 @@ public class LoginRequest {
         this.password = password;
     }
 
-    private String password;
-
-
     public String getImagenUrl() {
         return imagenUrl;
     }
@@ -30,7 +32,6 @@ public class LoginRequest {
         this.imagenUrl = imagenUrl;
     }
 
-    private String imagenUrl;
 
     public Integer getEdad() {
         return edad;
@@ -40,17 +41,15 @@ public class LoginRequest {
         this.edad = edad;
     }
 
-    private Integer edad;
 
     public Double getPeso() {
         return peso;
     }
-
+    
     public void setPeso(Double peso) {
         this.peso = peso;
     }
-
-    private Double peso;
+    
 
     public Double getAltura() {
         return altura;
@@ -59,6 +58,4 @@ public class LoginRequest {
     public void setAltura(Double altura) {
         this.altura = altura;
     }
-
-    private Double altura;
 }
