@@ -1,12 +1,22 @@
 package com.habity.habity_backend.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
-@Table(name = "usuarios")
-public class Usuario {
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,73 +24,49 @@ public class Usuario {
 
     private String nombre;
 
+    @Column(unique = true)
     private String email;
 
     private String password;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Habito> habitos;
-
-    // Getters y Setters
-    public Long getId() { return id; }
-
-    public void setId(Long id) { this.id = id; }
-
-    public String getNombre() { return nombre; }
-
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public String getEmail() { return email; }
-
-    public void setEmail(String email) { this.email = email; }
-
-    public String getPassword() { return password; }
-
-    public void setPassword(String password) { this.password = password; }
-
-    public List<Habito> getHabitos() { return habitos; }
-
-    public void setHabitos(List<Habito> habitos) { this.habitos = habitos; }
-
-
-
-    public String getImagenUrl() {
-        return imagenUrl;
-    }
-
-    public void setImagenUrl(String imagenUrl) {
-        this.imagenUrl = imagenUrl;
-    }
-
     private String imagenUrl;
 
-    public Integer getEdad() {
-        return edad;
+    private int edad;
+
+    private double peso;
+
+    private double altura;
+
+    // Implementación de la interfaz UserDetails:
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Si no tienes roles aún, deja vacío:
+        return Collections.emptyList();
     }
 
-    public void setEdad(Integer edad) {
-        this.edad = edad;
+    @Override
+    public String getUsername() {
+        return this.email;
     }
 
-    private Integer edad;
-
-    public Double getPeso() {
-        return peso;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setPeso(Double peso) {
-        this.peso = peso;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    private Double peso;
-
-    public Double getAltura() {
-        return altura;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setAltura(Double altura) {
-        this.altura = altura;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
-
-    private Double altura;
 }
