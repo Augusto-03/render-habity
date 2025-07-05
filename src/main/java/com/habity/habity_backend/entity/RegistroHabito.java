@@ -52,5 +52,4 @@ public class RegistroHabito {
     @JoinColumn(name = "habito_id")
     private Habito habito;
 
-    // Getters y setters
 }

@@ -25,19 +25,60 @@ public class Habito {
 
     private boolean activo;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     @JsonIgnore
     private Usuario usuario;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_habito_id")
     private TipoHabito tipo;
 
+    @ElementCollection
+    @CollectionTable(name = "dias_cumplidos", joinColumns = @JoinColumn(name = "habito_id"))
+    @Column(name = "fecha")
+    private Set<String> diasCumplidos = new HashSet<>();
 
-    // Getters y Setters
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    public boolean isCompletado() {
+        return completado;
+    }
+
+    public void setCompletado(boolean completado) {
+        this.completado = completado;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Set<String> getDiasCumplidos() {
+        return diasCumplidos;
+    }
+
+    public void setDiasCumplidos(Set<String> diasCumplidos) {
+        this.diasCumplidos = diasCumplidos;
+    }
+
+    public int getFrecuencia() {
+        return frecuencia;
+    }
+
+    public void setFrecuencia(int frecuencia) {
+        this.frecuencia = frecuencia;
+    }
+
     public Long getId() {
         return id;
     }
@@ -54,20 +95,12 @@ public class Habito {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public TipoHabito getTipo() {
+        return tipo;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public boolean getCompletado() {
-        return completado;
-    }
-
-    public void setCompletado(boolean completado) {
-        this.completado = completado;
+    public void setTipo(TipoHabito tipo) {
+        this.tipo = tipo;
     }
 
     public Usuario getUsuario() {
@@ -77,43 +110,6 @@ public class Habito {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
-    public int getFrecuencia() {
-        return frecuencia;
-    }
-
-    public void setFrecuencia(int frecuencia) {
-        this.frecuencia = frecuencia;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
-    public TipoHabito getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoHabito tipo) {
-        this.tipo = tipo;
-    }
-
-
-
-    @ElementCollection
-    @CollectionTable(name = "dias_cumplidos", joinColumns = @JoinColumn(name = "habito_id"))
-    @Column(name = "fecha")
-    private Set<String> diasCumplidos = new HashSet<>();
-    public Set<String> getDiasCumplidos() {
-        return diasCumplidos;
-    }
-
-    public void setDiasCumplidos(Set<String> diasCumplidos) {
-        this.diasCumplidos = diasCumplidos;
-    }
 }
+
 

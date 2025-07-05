@@ -34,10 +34,13 @@ public class HabitoService {
     }
 
     public Habito crearHabito(Habito habito, String email) {
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow();
-        habito.setUsuario(usuario);
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        habito.setUsuario(usuario); // Esto asegura que se guarda con un usuario válido
         return habitoRepository.save(habito);
     }
+
 
     public Habito editarHabito(Long id, Habito datos, String email) {
         Habito habito = habitoRepository.findById(id).orElseThrow();
@@ -46,7 +49,7 @@ public class HabitoService {
         }
         habito.setNombre(datos.getNombre());
         habito.setDescripcion(datos.getDescripcion());
-        habito.setCompletado(datos.getCompletado());
+        habito.setCompletado(datos.isCompletado());
         habito.setFrecuencia(datos.getFrecuencia());
         return habitoRepository.save(habito);
     }

@@ -25,8 +25,6 @@ import java.util.Set;
 @CrossOrigin(origins = "*")
 public class HabitoController {
 
-
-
     private final HabitoService habitoService;
     private final JwtUtil jwtUtil;
 
@@ -46,8 +44,8 @@ public class HabitoController {
     }
 
     @PostMapping
-    public Habito crearHabito(@RequestBody Habito habito, HttpServletRequest request) {
-        String email = getEmailFromToken(request);
+    public Habito crearHabito(@RequestBody Habito habito, Authentication authentication) {
+        String email = authentication.getName(); // 🔁 Usa el nombre (email)
         return habitoService.crearHabito(habito, email);
     }
 

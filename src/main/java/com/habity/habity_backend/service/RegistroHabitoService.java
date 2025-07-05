@@ -1,5 +1,6 @@
 package com.habity.habity_backend.service;
 
+import com.habity.habity_backend.config.JwtUtil;
 import com.habity.habity_backend.dto.RegistroHabitoDTO;
 import com.habity.habity_backend.entity.Habito;
 import com.habity.habity_backend.entity.RegistroHabito;
@@ -21,6 +22,9 @@ public class RegistroHabitoService {
     @Autowired
     private HabitoRepository habitoRepository;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     public List<RegistroHabitoDTO> obtenerPorHabito(Long habitoId) {
         return registroRepository.findByHabitoId(habitoId).stream()
                 .map(RegistroHabitoMapper::toDTO)
@@ -32,5 +36,15 @@ public class RegistroHabitoService {
         Habito habito = habitoRepository.findById(dto.habitoId).orElseThrow();
         entity.setHabito(habito);
         return RegistroHabitoMapper.toDTO(registroRepository.save(entity));
+    }
+
+    public List<RegistroHabitoDTO> obtenerPorUsuario(String token) {
+        String email = jwtUtil.extractUsername(token);
+        List<Habito> habitos = habitoRepository.findByUsuarioEmail(email);
+
+        return habitos.stream()
+                .flatMap(h -> registroRepository.findByHabitoId(h.getId()).stream())
+                .map(RegistroHabitoMapper::toDTO)
+                .collect(Collectors.toList());
     }
 }
