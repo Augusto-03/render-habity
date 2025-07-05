@@ -1,5 +1,7 @@
 package com.habity.habity_backend.service;
 
+
+import com.habity.habity_backend.dto.RegistroUsuarioDTO;
 import com.habity.habity_backend.entity.Usuario;
 import com.habity.habity_backend.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,15 +18,18 @@ public class UsuarioService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Usuario registrarUsuario(String nombre, String email, String password) {
-        if (usuarioRepository.findByEmail(email).isPresent()) {
+    public Usuario crearDesdeRegistro(RegistroUsuarioDTO dto) {
+        if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new RuntimeException("El email ya está en uso");
         }
 
         Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setEmail(email);
-        usuario.setPassword(passwordEncoder.encode(password));
+        usuario.setNombre(dto.getNombre());
+        usuario.setEmail(dto.getEmail());
+        usuario.setPassword(passwordEncoder.encode(dto.getPassword()));
+        usuario.setEdad(dto.getEdad());
+        usuario.setPeso(dto.getPeso());
+        usuario.setAltura(dto.getAltura());
 
         return usuarioRepository.save(usuario);
     }

@@ -7,17 +7,18 @@ public class UsuarioMapper {
 
     public static UsuarioDTO toDTO(Usuario entity) {
         UsuarioDTO dto = new UsuarioDTO();
-        dto.id = entity.getId();
-        dto.nombre = entity.getNombre();
-        dto.email = entity.getEmail();
+        dto.setId(entity.getId());
+        dto.setNombre(entity.getNombre());
+        dto.setEmail(entity.getEmail());
         return dto;
     }
 
     public static Usuario toEntity(UsuarioDTO dto) {
         Usuario entity = new Usuario();
-        entity.setId(dto.id);
-        entity.setNombre(dto.nombre);
-        entity.setEmail(dto.email);
+        entity.setId(dto.getId());
+        entity.setNombre(dto.getNombre());
+        entity.setEmail(dto.getEmail());
         return entity;
     }
 }
+
