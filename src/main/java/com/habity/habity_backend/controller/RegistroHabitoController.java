@@ -16,25 +16,21 @@ public class RegistroHabitoController {
     @Autowired
     private RegistroHabitoService registroHabitoService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    @PostMapping
+    public RegistroHabitoDTO crearRegistro(@RequestBody RegistroHabitoDTO dto, HttpServletRequest request) {
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        return registroHabitoService.crearRegistro(dto, token);
+    }
 
     @GetMapping("/habito/{habitoId}")
     public List<RegistroHabitoDTO> obtenerPorHabito(@PathVariable Long habitoId) {
         return registroHabitoService.obtenerPorHabito(habitoId);
     }
 
-    @PostMapping
-    public RegistroHabitoDTO crearRegistro(@RequestBody RegistroHabitoDTO dto) {
-        return registroHabitoService.crearRegistro(dto);
-    }
-
     @GetMapping("/usuario")
     public List<RegistroHabitoDTO> obtenerRegistrosDelUsuario(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        String token = authHeader != null && authHeader.startsWith("Bearer ")
-                ? authHeader.substring(7)
-                : "";
+        String token = request.getHeader("Authorization").replace("Bearer ", "");
         return registroHabitoService.obtenerPorUsuario(token);
     }
 }
+

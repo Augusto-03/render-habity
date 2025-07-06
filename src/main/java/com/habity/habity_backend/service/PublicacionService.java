@@ -8,6 +8,7 @@ import com.habity.habity_backend.repository.PublicacionRepository;
 import com.habity.habity_backend.repository.ReaccionPublicacionRepository;
 import com.habity.habity_backend.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -34,17 +35,14 @@ public class PublicacionService {
     }
 
     public void crearPublicacion(Publicacion publicacion, HttpServletRequest request) {
-        String token = request.getHeader("Authorization").replace("Bearer ", "");
-        String email = jwtUtil.extractUsername(token);
-
-        Usuario usuario = usuarioRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         publicacion.setUsuario(usuario);
         publicacion.setFechaCreacion(LocalDateTime.now());
 
         publicacionRepository.save(publicacion);
     }
+
 
     public void reaccionarPublicacion(Long id, boolean esLike, HttpServletRequest request) {
         String email = jwtUtil.extractUsername(request.getHeader("Authorization").replace("Bearer ", ""));

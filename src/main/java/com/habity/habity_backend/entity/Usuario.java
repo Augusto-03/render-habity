@@ -1,15 +1,18 @@
 package com.habity.habity_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Getter
@@ -38,13 +41,18 @@ public class Usuario implements UserDetails {
 
     private double altura;
 
-    // Implementación de la interfaz UserDetails:
+    // Implementación de la interfaz UserDetails (gran cambio):
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Si no tienes roles aún, deja vacío:
-        return Collections.emptyList();
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
+
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    private java.util.List<Habito> habitos;
+
 
     @Override
     public String getUsername() {

@@ -46,7 +46,6 @@ public class PublicacionController {
         publicacionService.reaccionarPublicacion(id, esLike, request);
         return ResponseEntity.ok().build();
     }
-
     @GetMapping("/{id}/likes")
     public Long contarLikes(@PathVariable Long id) {
         return publicacionService.contarLikes(id);

@@ -11,6 +11,7 @@ import java.util.List;
 public interface RegistroHabitoRepository extends JpaRepository<RegistroHabito, Long> {
 
     List<RegistroHabito> findByHabitoId(Long habitoId);
+    List<RegistroHabito> findByUsuarioIdAndCumplidoTrue(Long usuarioId);
 
     boolean existsByHabitoIdAndFecha(Long habitoId, LocalDate fecha);
 

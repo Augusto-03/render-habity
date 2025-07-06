@@ -1,6 +1,7 @@
 package com.habity.habity_backend.controller;
 
 import com.habity.habity_backend.config.JwtUtil;
+import com.habity.habity_backend.dto.HabitoDTO;
 import com.habity.habity_backend.entity.Habito;
 import com.habity.habity_backend.entity.RegistroHabito;
 import com.habity.habity_backend.entity.Usuario;
@@ -19,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/habitos")
@@ -39,13 +41,17 @@ public class HabitoController {
     }
 
     @GetMapping
-    public List<Habito> obtenerHabitosDelUsuarioAutenticado(Authentication authentication) {
-        return habitoService.obtenerHabitosDelUsuario(authentication.getName());
+    public ResponseEntity<List<HabitoDTO>> obtenerHabitosDelUsuarioAutenticado(Authentication authentication) {
+        List<Habito> habitos = habitoService.obtenerHabitosDelUsuario(authentication.getName());
+        System.out.println("HÁBITOS ENCONTRADOS PARA " + authentication.getName() + ": " + habitos.size());
+
+        List<HabitoDTO> dtoList = habitos.stream().map(this::mapToDTO).collect(Collectors.toList());
+        return ResponseEntity.ok(dtoList);
     }
 
     @PostMapping
     public Habito crearHabito(@RequestBody Habito habito, Authentication authentication) {
-        String email = authentication.getName(); // 🔁 Usa el nombre (email)
+        String email = authentication.getName();
         return habitoService.crearHabito(habito, email);
     }
 
@@ -66,5 +72,19 @@ public class HabitoController {
         String email = getEmailFromToken(request);
         habitoService.toggleDiaCumplido(id, LocalDate.parse(fecha), email);
         return ResponseEntity.ok().build();
+    }
+
+    private HabitoDTO mapToDTO(Habito h) {
+        HabitoDTO dto = new HabitoDTO();
+        dto.id = h.getId();
+        dto.nombre = h.getNombre();
+        dto.descripcion = h.getDescripcion();
+        dto.frecuencia = h.getFrecuencia();
+        dto.completado = h.isCompletado();
+        dto.activo = h.isActivo();
+        dto.usuarioId = h.getUsuario().getId();
+        dto.tipoHabitoId = h.getTipo().getId();
+        dto.setTipoNombre(h.getTipo().getNombre());
+        return dto;
     }
 }

@@ -1,61 +1,68 @@
-    package com.habity.habity_backend.security;
-    /*Dylan*/
-    import com.habity.habity_backend.config.JwtUtil;
-    import com.habity.habity_backend.entity.Usuario;
-    import com.habity.habity_backend.repository.UsuarioRepository;
-    import jakarta.servlet.FilterChain;
-    import jakarta.servlet.ServletException;
-    import jakarta.servlet.http.HttpServletRequest;
-    import jakarta.servlet.http.HttpServletResponse;
-    import lombok.RequiredArgsConstructor;
-    import org.springframework.lang.NonNull;
-    import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-    import org.springframework.security.core.context.SecurityContextHolder;
-    import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-    import org.springframework.stereotype.Component;
-    import org.springframework.web.filter.OncePerRequestFilter;
+package com.habity.habity_backend.security;
 
-    import java.io.IOException;
-    import java.util.Optional;
+import com.habity.habity_backend.config.JwtUtil;
+import com.habity.habity_backend.entity.Usuario;
+import com.habity.habity_backend.repository.UsuarioRepository;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
-    @Component
-    @RequiredArgsConstructor
-    public class JwtAuthenticationFilter extends OncePerRequestFilter {
+import java.io.IOException;
+import java.util.Optional;
 
-        private final JwtUtil jwtUtil;
-        private final UsuarioRepository usuarioRepository;
+@Component
+@RequiredArgsConstructor
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-        @Override
-        protected void doFilterInternal(@NonNull HttpServletRequest request,
-                                        @NonNull HttpServletResponse response,
-                                        @NonNull FilterChain filterChain)
-                throws ServletException, IOException {
+    private final JwtUtil jwtUtil;
+    private final UsuarioRepository usuarioRepository;
 
-            final String authHeader = request.getHeader("Authorization");
+    @Override
+    protected void doFilterInternal(@NonNull HttpServletRequest request,
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain)
+            throws ServletException, IOException {
 
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                filterChain.doFilter(request, response);
-                return;
-            }
+        final String authHeader = request.getHeader("Authorization");
 
-            String token = authHeader.substring(7);
-            String email = jwtUtil.extractUsername(token);
-
-            if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                Optional<Usuario> userOpt = usuarioRepository.findByEmail(email);
-
-                if (userOpt.isPresent() && jwtUtil.validateToken(token)) {
-                    Usuario user = userOpt.get();
-
-                    UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                    SecurityContextHolder.getContext().setAuthentication(authToken);
-                }
-            }
-
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
+            return;
         }
+
+        String token = authHeader.substring(7);
+        String email;
+
+        try {
+            email = jwtUtil.extractUsername(token);
+        } catch (Exception e) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            Optional<Usuario> userOpt = usuarioRepository.findByEmail(email);
+
+            if (userOpt.isPresent() && jwtUtil.validateToken(token)) {
+                Usuario user = userOpt.get();
+
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        }
+
+        filterChain.doFilter(request, response);
     }
+}
+

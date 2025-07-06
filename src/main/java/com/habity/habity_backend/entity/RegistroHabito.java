@@ -8,48 +8,35 @@ import java.time.LocalDate;
 @Table(name = "registro_habito")
 public class RegistroHabito {
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public LocalDate getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
     private LocalDate fecha;
-
-    public boolean isCumplido() {
-        return cumplido;
-    }
-
-    public void setCumplido(boolean cumplido) {
-        this.cumplido = cumplido;
-    }
-
     private boolean cumplido = false;
-
-    public Habito getHabito() {
-        return habito;
-    }
-
-    public void setHabito(Habito habito) {
-        this.habito = habito;
-    }
 
     @ManyToOne
     @JoinColumn(name = "habito_id")
     private Habito habito;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    // Getters y setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public LocalDate getFecha() { return fecha; }
+    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+
+    public boolean isCumplido() { return cumplido; }
+    public void setCumplido(boolean cumplido) { this.cumplido = cumplido; }
+
+    public Habito getHabito() { return habito; }
+    public void setHabito(Habito habito) { this.habito = habito; }
+
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 }
+

@@ -13,6 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
@@ -40,8 +43,13 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegistroUsuarioDTO dto) {
         usuarioService.crearDesdeRegistro(dto);
-        return ResponseEntity.ok("Usuario registrado exitosamente");
+
+        Map<String, String> response = new HashMap<>();
+        response.put("mensaje", "Usuario registrado exitosamente");
+
+        return ResponseEntity.ok(response); //
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
