@@ -18,7 +18,6 @@ public class Notificacion {
     @ManyToOne
     private Usuario usuario;
 
-    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) {
         this.id = id;

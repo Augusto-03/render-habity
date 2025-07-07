@@ -24,23 +24,17 @@ public class EstadisticaPersonalService {
     public EstadisticaPersonalDTO obtenerPorUsuario(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow();
 
-        // 1. Obtener registros cumplidos
         List<RegistroHabito> registros = registroHabitoRepository.findByUsuarioIdAndCumplidoTrue(usuarioId);
-
-        // 2. Total de hábitos cumplidos
         int totalHabitosCumplidos = registros.size();
 
-        // 3. Total de días activos (fechas únicas)
         Set<LocalDate> diasActivos = registros.stream()
                 .map(RegistroHabito::getFecha)
                 .collect(Collectors.toSet());
 
         int totalDiasActivos = diasActivos.size();
 
-        // 4. Racha actual
         int rachaActual = calcularRacha(diasActivos);
 
-        // 5. Armar DTO
         EstadisticaPersonalDTO dto = new EstadisticaPersonalDTO();
         dto.usuarioId = usuarioId;
         dto.totalHabitosCumplidos = totalHabitosCumplidos;

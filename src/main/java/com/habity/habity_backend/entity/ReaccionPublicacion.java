@@ -26,7 +26,6 @@ public class ReaccionPublicacion {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    // Getters y Setters
     public Long getId() { return id; }
 
     public void setId(Long id) {

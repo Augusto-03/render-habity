@@ -21,7 +21,6 @@ public class Comentario {
     @ManyToOne
     private Publicacion publicacion;
 
-    // Getters y Setters
     public Long getId() { return id; }
 
     public void setId(Long id) {

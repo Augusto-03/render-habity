@@ -21,7 +21,6 @@ public class Publicacion {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }

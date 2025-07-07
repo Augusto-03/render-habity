@@ -37,7 +37,7 @@ public class HabitoService {
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        habito.setUsuario(usuario); // Esto asegura que se guarda con un usuario válido
+        habito.setUsuario(usuario);
         return habitoRepository.save(habito);
     }
 

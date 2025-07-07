@@ -23,7 +23,6 @@ public class RegistroHabito {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    // Getters y setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

@@ -17,7 +17,6 @@ public class Recordatorio {
     @ManyToOne
     private Habito habito;
 
-    // Getters y Setters
     public Long getId() { return id; }
 
     public void setId(Long id) {
