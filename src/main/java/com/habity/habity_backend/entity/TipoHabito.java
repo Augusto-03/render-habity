@@ -19,7 +19,6 @@ public class TipoHabito {
     @JsonBackReference
     private List<Habito> habitos;
 
-    // Getters y Setters
     public Long getId() { return id; }
 
     public void setId(Long id) {
